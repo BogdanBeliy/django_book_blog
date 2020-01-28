@@ -27,4 +27,5 @@
 <i>
     {{ post.publish }}
 </i>
+<a href="{% url "blog:post_share" post.id %}">Share</a>
 {% endblock content %}
