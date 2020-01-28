@@ -5,14 +5,14 @@ from .models import *
 
 
 
-@admin.register(Post)
+@admin.register(Post) #декоратор для регистрации модели 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'publish', 'status')
-    list_filter = ('status', 'created', 'publish', 'author')
-    search_fields = ('title', 'body')
-    prepopulated_fields = {'slug': ('title', )}
-    raw_id_fields = ('author', )
-    date_hierarchy = 'publish'
-    ordering = ('status', 'publish')
+    list_display = ('title', 'slug', 'author', 'publish', 'status') #отображение полей модели в админке
+    list_filter = ('status', 'created', 'publish', 'author') #фильтрация полей модели
+    search_fields = ('title', 'body') #поля по которым можно выполнять поиск
+    prepopulated_fields = {'slug': ('title', )} #формирование слага из названия поста
+    raw_id_fields = ('author', ) #содержит список полей
+    date_hierarchy = 'publish' # фильтр по дате публикации
+    ordering = ('status', 'publish') #сортировка по статусу и публикации
     
 
