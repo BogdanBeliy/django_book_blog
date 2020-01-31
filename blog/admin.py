@@ -16,3 +16,13 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ('status', 'publish') #сортировка по статусу и публикации
     
 
+
+
+
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'post', 'email', 'created',)
+    list_filter = ('active', 'created', 'updated')
+    search_fields = ('body', 'name', 'post')
+    
+

@@ -14,6 +14,8 @@
     {{ post.title }}
 
 </h2>
+<b> Теги: #{{ post.tags.all|join:"," }}</b>
+
 
 <p>
     {{ post.body|linebreaks }}
@@ -28,4 +30,47 @@
     {{ post.publish }}
 </i>
 <a href="{% url "blog:post_share" post.id %}">Share</a>
+
+{% with comments.count as total_comments %}
+
+<h2> {{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+
+{% endwith %}
+
+
+
+{% for comment in comments %}
+
+<div class="comment">
+
+    <p class="info">
+        Comment {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+    </p>
+{{ comment.body|linebreaks }}
+
+</div>
+
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+{% if new_comment %}
+<h3>
+Ваш комментраий добавлен
+</h3>
+
+{% endif %}
+<form action="" method="POST">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Add comment">
+
+</form>
+{% for post in similar_posts %}
+<div>
+<b>{{ post.title }}</b> <br>
+{{ post.body }} <br>
+{{ post.author }} <br>
+</div>
+{% endfor %}
 {% endblock content %}

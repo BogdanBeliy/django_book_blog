@@ -7,8 +7,15 @@
 
 
 {% block content %}
-{% for post in posts %}
 
+
+{% for post in posts %}
+{% if tag %}
+    <h2>Posts tagget: {{ tag.name }}</h2>
+{% endif %}
+{% for tag in post.tags.all %}
+<a href="{% url "blog:post_list_by_tag" tag.slug%}">{{ tag.name }}</a>
+{% endfor %}
 <h2>
     <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a>
 </h2>
@@ -18,6 +25,6 @@
 
 {% endfor %}
 
-{% include 'blog/pagination.html' with page=page_obj %}
+{% include 'blog/pagination.html' with page=posts %}
 
 {% endblock content %}
